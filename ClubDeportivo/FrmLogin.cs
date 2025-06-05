@@ -7,6 +7,7 @@ namespace ClubDeportivo
         public FrmLogin()
         {
             InitializeComponent();
+            this.AcceptButton = btnIngresar;
             txtUsuario.Text = "Usuario";
             txtUsuario.ForeColor = Color.Silver;
 
@@ -22,6 +23,7 @@ namespace ClubDeportivo
             txtContraseña.Text = "Contraseña";
             txtContraseña.ForeColor = Color.Silver;
             chkVerPassword.Checked = false;
+             
         }
         private void txtUsuario_Enter(object sender, EventArgs e)
         {
@@ -80,6 +82,7 @@ namespace ClubDeportivo
 
 
         }
+        
 
         private void chkVerPassword_CheckedChanged(object sender, EventArgs e)
         {

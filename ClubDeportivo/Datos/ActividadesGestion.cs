@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ClubDeportivo.Datos
 {
-    public class Actividades
+    public class ActividadesGestion
     {
         // Obtener todas las actividades (para el ComboBox)
         public DataTable ObtenerActividades()
@@ -49,6 +49,34 @@ namespace ClubDeportivo.Datos
             }
 
             return monto;
+        }
+        public string InsertarActividad(string nombre, string dias, string horarios, int cupo)
+        {
+            string respuesta = "";
+
+            using (MySqlConnection sqlCon = Conexion.getInstancia().CrearConcexion())
+            {
+                try
+                {
+                    sqlCon.Open();
+                    MySqlCommand cmd = new MySqlCommand("InsertarActividad", sqlCon);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("p_nombre", nombre);
+                    cmd.Parameters.AddWithValue("p_dias", dias);
+                    cmd.Parameters.AddWithValue("p_horarios", horarios);
+                    cmd.Parameters.AddWithValue("p_cupo", cupo);
+
+                    cmd.ExecuteNonQuery();
+                    respuesta = "OK";
+                }
+                catch (Exception ex)
+                {
+                    respuesta = ex.Message;
+                }
+            }
+
+            return respuesta;
         }
     }
 }

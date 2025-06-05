@@ -49,5 +49,12 @@ namespace ClubDeportivo
             this.Hide(); // opcional: oculta el principal mientras estás en el secundario
             pagoActividad.Show();
         }
+
+        private void btnGestionValores_Click(object sender, EventArgs e)
+        {
+            FrmGestionValores gestionValores = new FrmGestionValores(this);
+            this.Hide(); // opcional: oculta el principal mientras estás en el secundario
+            gestionValores.Show();
+        }
     }
 }

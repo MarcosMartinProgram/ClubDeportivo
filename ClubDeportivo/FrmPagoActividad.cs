@@ -32,7 +32,7 @@ namespace ClubDeportivo
 
         private void CargarActividades()
         {
-            Actividades actividades = new Actividades();
+            ActividadesGestion actividades = new ActividadesGestion();
             cboActividad.DataSource = actividades.ObtenerActividades();
             cboActividad.DisplayMember = "nombre";
             cboActividad.ValueMember = "idActividad";
@@ -69,8 +69,15 @@ namespace ClubDeportivo
             if (cboActividad.SelectedValue != null)
             {
                 int idActividad = Convert.ToInt32(cboActividad.SelectedValue);
-                Actividades actividades = new Actividades();
+                ActividadesGestion actividades = new ActividadesGestion();
                 double monto = actividades.ObtenerMontoActividad(idActividad);
+                txtMonto.Text = monto.ToString("0.00");
+
+                if (monto <= 0)
+                {
+                    MessageBox.Show("No se encontró un monto válido para esta actividad.");
+                }
+
                 txtMonto.Text = monto.ToString("0.00");
             }
         }

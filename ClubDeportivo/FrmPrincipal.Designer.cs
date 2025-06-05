@@ -33,7 +33,7 @@
             btnCobrarActividad = new Button();
             btnGenerarCarnet = new Button();
             btnCobraCuota = new Button();
-            btnAsignarActividad = new Button();
+            btnGestionValores = new Button();
             button5 = new Button();
             btnSalir = new Button();
             SuspendLayout();
@@ -96,16 +96,17 @@
             btnCobraCuota.UseVisualStyleBackColor = false;
             btnCobraCuota.Click += btnCobraCuota_Click;
             // 
-            // btnAsignarActividad
+            // btnGestionValores
             // 
-            btnAsignarActividad.BackColor = SystemColors.Info;
-            btnAsignarActividad.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnAsignarActividad.Location = new Point(301, 228);
-            btnAsignarActividad.Name = "btnAsignarActividad";
-            btnAsignarActividad.Size = new Size(153, 60);
-            btnAsignarActividad.TabIndex = 5;
-            btnAsignarActividad.Text = "ASIGNAR ACTIVIDAD";
-            btnAsignarActividad.UseVisualStyleBackColor = false;
+            btnGestionValores.BackColor = SystemColors.Info;
+            btnGestionValores.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnGestionValores.Location = new Point(301, 228);
+            btnGestionValores.Name = "btnGestionValores";
+            btnGestionValores.Size = new Size(153, 60);
+            btnGestionValores.TabIndex = 5;
+            btnGestionValores.Text = "GESTIÓN";
+            btnGestionValores.UseVisualStyleBackColor = false;
+            btnGestionValores.Click += btnGestionValores_Click;
             // 
             // button5
             // 
@@ -137,7 +138,7 @@
             ClientSize = new Size(555, 507);
             Controls.Add(btnSalir);
             Controls.Add(button5);
-            Controls.Add(btnAsignarActividad);
+            Controls.Add(btnGestionValores);
             Controls.Add(btnCobraCuota);
             Controls.Add(btnGenerarCarnet);
             Controls.Add(btnCobrarActividad);
@@ -158,7 +159,7 @@
         private Button btnCobrarActividad;
         private Button btnGenerarCarnet;
         private Button btnCobraCuota;
-        private Button btnAsignarActividad;
+        private Button btnGestionValores;
         private Button button5;
         private Button btnSalir;
     }
