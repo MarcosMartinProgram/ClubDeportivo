@@ -38,6 +38,8 @@
             rdbTarjeta = new RadioButton();
             btnRegistrar = new Button();
             lblTitulo = new Label();
+            lblDias = new Label();
+            lblHorarios = new Label();
             SuspendLayout();
             // 
             // txtDni
@@ -79,14 +81,14 @@
             // 
             // dtpFecha
             // 
-            dtpFecha.Location = new Point(44, 184);
+            dtpFecha.Location = new Point(44, 234);
             dtpFecha.Name = "dtpFecha";
             dtpFecha.Size = new Size(214, 23);
             dtpFecha.TabIndex = 5;
             // 
             // txtMonto
             // 
-            txtMonto.Location = new Point(302, 187);
+            txtMonto.Location = new Point(302, 234);
             txtMonto.Name = "txtMonto";
             txtMonto.Size = new Size(100, 23);
             txtMonto.TabIndex = 6;
@@ -95,7 +97,7 @@
             // rdbEfectivo
             // 
             rdbEfectivo.AutoSize = true;
-            rdbEfectivo.Location = new Point(94, 246);
+            rdbEfectivo.Location = new Point(94, 276);
             rdbEfectivo.Name = "rdbEfectivo";
             rdbEfectivo.Size = new Size(67, 19);
             rdbEfectivo.TabIndex = 7;
@@ -106,7 +108,7 @@
             // rdbTarjeta
             // 
             rdbTarjeta.AutoSize = true;
-            rdbTarjeta.Location = new Point(94, 281);
+            rdbTarjeta.Location = new Point(94, 311);
             rdbTarjeta.Name = "rdbTarjeta";
             rdbTarjeta.Size = new Size(60, 19);
             rdbTarjeta.TabIndex = 8;
@@ -116,7 +118,7 @@
             // 
             // btnRegistrar
             // 
-            btnRegistrar.Location = new Point(302, 251);
+            btnRegistrar.Location = new Point(302, 281);
             btnRegistrar.Name = "btnRegistrar";
             btnRegistrar.Size = new Size(138, 49);
             btnRegistrar.TabIndex = 9;
@@ -133,11 +135,31 @@
             lblTitulo.TabIndex = 10;
             lblTitulo.Text = "PAGOS ACTIVIDADES";
             // 
+            // lblDias
+            // 
+            lblDias.AutoSize = true;
+            lblDias.Location = new Point(302, 164);
+            lblDias.Name = "lblDias";
+            lblDias.Size = new Size(17, 15);
+            lblDias.TabIndex = 11;
+            lblDias.Text = "\"\"";
+            // 
+            // lblHorarios
+            // 
+            lblHorarios.AutoSize = true;
+            lblHorarios.Location = new Point(302, 191);
+            lblHorarios.Name = "lblHorarios";
+            lblHorarios.Size = new Size(17, 15);
+            lblHorarios.TabIndex = 12;
+            lblHorarios.Text = "\"\"";
+            // 
             // FrmPagoActividad
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(505, 381);
+            Controls.Add(lblHorarios);
+            Controls.Add(lblDias);
             Controls.Add(lblTitulo);
             Controls.Add(btnRegistrar);
             Controls.Add(rdbTarjeta);
@@ -149,6 +171,7 @@
             Controls.Add(btnBuscar);
             Controls.Add(txtDni);
             Name = "FrmPagoActividad";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "PAGO ACTIVIDAD";
             Load += FrmPagoActividad_Load;
             ResumeLayout(false);
@@ -167,5 +190,7 @@
         private RadioButton rdbTarjeta;
         private Button btnRegistrar;
         private Label lblTitulo;
+        private Label lblDias;
+        private Label lblHorarios;
     }
 }

@@ -21,11 +21,12 @@ namespace ClubDeportivo
             InitializeComponent();
             _formularioPrincipal = formularioPrincipal;
             this.Load += FrmPagoActividad_Load;
-            rdbEfectivo.Checked = true; // Valor predeterminado
+            this.FormClosing += FrmPagoActividad_FormClosing; // <-- Agrega esta línea
+            rdbEfectivo.Checked = true; 
         }
         private void FrmPagoActividad_Load(object sender, EventArgs e)
         {
-            // Aquí podés cargar el ComboBox de actividades por ejemplo
+            
             CargarActividades();
         }
 
@@ -66,19 +67,31 @@ namespace ClubDeportivo
 
         private void cboActividad_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cboActividad.SelectedValue != null)
+            try
             {
-                int idActividad = Convert.ToInt32(cboActividad.SelectedValue);
-                ActividadesGestion actividades = new ActividadesGestion();
-                double monto = actividades.ObtenerMontoActividad(idActividad);
-                txtMonto.Text = monto.ToString("0.00");
-
-                if (monto <= 0)
+                if (cboActividad.SelectedValue != null && cboActividad.SelectedItem is DataRowView fila)
                 {
-                    MessageBox.Show("No se encontró un monto válido para esta actividad.");
-                }
+                    int idActividad = Convert.ToInt32(fila["idActividad"]);
+                    string dias = fila["dias"].ToString();
+                    string horarios = fila["horarios"].ToString();
 
-                txtMonto.Text = monto.ToString("0.00");
+                    lblDias.Text = "Días: " + dias;
+                    lblHorarios.Text = "Horarios: " + horarios;
+
+                    ActividadesGestion actividades = new ActividadesGestion();
+                    double monto = actividades.ObtenerMontoActividad(idActividad);
+
+                    if (monto <= 0)
+                    {
+                        MessageBox.Show("No se encontró un monto válido para esta actividad.");
+                    }
+
+                    txtMonto.Text = monto.ToString("0.00");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al obtener los datos de la actividad:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -131,6 +144,10 @@ namespace ClubDeportivo
             rdbEfectivo.Checked = true;
             dtpFecha.Value = DateTime.Today;
             idNoSocioSeleccionado = -1;
+        }
+        private void FrmPagoActividad_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _formularioPrincipal.Show(); 
         }
     }
 }

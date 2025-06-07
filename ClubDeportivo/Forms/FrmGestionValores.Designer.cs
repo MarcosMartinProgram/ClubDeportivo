@@ -308,6 +308,7 @@
             ClientSize = new Size(658, 421);
             Controls.Add(tpActividadesYValores);
             Name = "FrmGestionValores";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Gestión Actividades y Valores";
             Load += FrmGestionValores_Load;
             tpActividadesYValores.ResumeLayout(false);

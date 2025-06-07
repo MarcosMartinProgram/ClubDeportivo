@@ -240,6 +240,7 @@
             Controls.Add(lblBuscarSocio);
             Controls.Add(label1);
             Name = "FrmPagos";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Pagos ";
             FormClosing += FrmPagos_FormClosing;
             Load += FrmPagos_Load;

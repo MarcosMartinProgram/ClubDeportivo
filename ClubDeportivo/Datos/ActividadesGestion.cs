@@ -18,7 +18,7 @@ namespace ClubDeportivo.Datos
             using (MySqlConnection sqlCon = Conexion.getInstancia().CrearConcexion())
             {
                 sqlCon.Open();
-                string query = "SELECT idActividad, nombre FROM actividades ORDER BY nombre";
+                string query = "SELECT idActividad, nombre, dias, horarios FROM actividades ORDER BY nombre";
 
                 MySqlCommand cmd = new MySqlCommand(query, sqlCon);
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
@@ -36,7 +36,7 @@ namespace ClubDeportivo.Datos
             using (MySqlConnection sqlCon = Conexion.getInstancia().CrearConcexion())
             {
                 sqlCon.Open();
-                string query = "SELECT monto FROM actividad_valor WHERE idActividad = @idActividad ORDER BY fechaDesde DESC LIMIT 1";
+                string query = "SELECT monto FROM valor_actividad WHERE idActividad = @idActividad ORDER BY fechaDesde DESC LIMIT 1";
 
                 MySqlCommand cmd = new MySqlCommand(query, sqlCon);
                 cmd.Parameters.AddWithValue("@idActividad", idActividad);

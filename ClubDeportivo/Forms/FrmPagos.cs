@@ -13,7 +13,19 @@ namespace ClubDeportivo
 {
     public partial class FrmPagos : Form
     {
+        private string _dni;
         private frmPrincipal _formularioPrincipal;
+        
+        public FrmPagos(string dni, frmPrincipal formularioPrincipal)
+        {
+            InitializeComponent();
+            _dni = dni;
+            _formularioPrincipal = formularioPrincipal;
+            this.FormClosing += FrmPagos_FormClosing;
+            txtDniSocio.Text = _dni;
+            BuscarSocioPorDni();
+
+        }
         public FrmPagos(frmPrincipal formularioPrincipal)
         {
             InitializeComponent();

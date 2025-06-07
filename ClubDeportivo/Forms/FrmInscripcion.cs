@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,6 +14,8 @@ namespace ClubDeportivo
     public partial class FrmInscripcion : Form
     {
         private frmPrincipal _formularioPrincipal;
+        private bool _mostrarPrincipalAlCerrar = true;
+
         public FrmInscripcion(frmPrincipal formularioPrincipal)
         {
             InitializeComponent();
@@ -21,10 +24,12 @@ namespace ClubDeportivo
         private void btnVolver_Click(object sender, EventArgs e)
         {
             _formularioPrincipal.Show();
+            _mostrarPrincipalAlCerrar = false;
             this.Close();
         }
         private void btnIngresar_Click(object sender, EventArgs e)
         {
+            string dni = txtDocumento.Text.Trim();
             if (txtNombre.Text == "" || txtApellido.Text == "" ||
                 txtDocumento.Text == "" || txtDomicilio.Text == "" ||
                 txtTelefono.Text == "")
@@ -51,6 +56,7 @@ namespace ClubDeportivo
 
                 if (chkSocio.Checked)
                 {
+                    double montoCuota = Datos.CuotasDAO.ObtenerUltimoMontoCuota();
                     // Crear Socio
                     Entidades.Socio socio = new Entidades.Socio
                     {
@@ -62,7 +68,8 @@ namespace ClubDeportivo
                         Telefono = txtTelefono.Text,
                         FichaMedica = chkFichaMedica.Checked,
                         FechaAlta = DateTime.Now,
-                        Carnet = chkCarnetEntregado.Checked
+                        Carnet = chkCarnetEntregado.Checked,
+                        PrecioCuota = montoCuota
                     };
 
                     respuesta = postulantes.RegistrarPersona(socio, true);
@@ -91,6 +98,12 @@ namespace ClubDeportivo
                 {
                     MessageBox.Show("Se almacenó con éxito.", "AVISO DEL SISTEMA",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    FrmPagos pagos = new FrmPagos(dni, _formularioPrincipal);
+                    _formularioPrincipal.Hide();
+                    _mostrarPrincipalAlCerrar = false;
+                    pagos.Show();
+                    this.Close();
                 }
                 else
                 {
@@ -125,7 +138,8 @@ namespace ClubDeportivo
         }
         private void FrmInscipcion_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _formularioPrincipal.Show();
+            if (_mostrarPrincipalAlCerrar)
+                _formularioPrincipal.Show();
         }
     }
 }
