@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClubDeportivo.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -56,5 +57,13 @@ namespace ClubDeportivo
             this.Hide(); // opcional: oculta el principal mientras estás en el secundario
             gestionValores.Show();
         }
+
+        private void btnGenerarListado_Click(object sender, EventArgs e)
+        {
+            FrmListadoVencimientos listado = new FrmListadoVencimientos(this);
+            this.Hide(); 
+            listado.Show();
+        }
+        
     }
 }

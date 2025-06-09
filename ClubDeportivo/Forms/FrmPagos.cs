@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,9 +23,10 @@ namespace ClubDeportivo
             _dni = dni;
             _formularioPrincipal = formularioPrincipal;
             this.FormClosing += FrmPagos_FormClosing;
+            this.dtpFechaPago.ValueChanged += dtpFechaPago_ValueChanged;
             txtDniSocio.Text = _dni;
             BuscarSocioPorDni();
-
+            
         }
         public FrmPagos(frmPrincipal formularioPrincipal)
         {
@@ -42,6 +44,9 @@ namespace ClubDeportivo
             cmbCantidadCuotas.Items.Add("1"); // Por defecto
             cmbCantidadCuotas.SelectedIndex = 0;
             cmbCantidadCuotas.Enabled = false; // Solo se habilita si elige tarjeta
+
+            dtpFechaVencimiento.Value = dtpFechaPago.Value.AddDays(30);
+
         }
         private void txtDniSocio_KeyDown(object sender, KeyEventArgs e)
         {
@@ -75,7 +80,9 @@ namespace ClubDeportivo
                     string nombre = dt.Rows[0]["nombre"].ToString();
                     string apellido = dt.Rows[0]["apellido"].ToString();
                     txtLeyendaSocio.Text = $"{nombre} {apellido}";
-                    txtImporte.Text = dt.Rows[0]["precioCuota"].ToString();
+                    
+                    double valorCuota = CuotasDAO.ObtenerUltimoMontoCuota();
+                    txtImporte.Text = valorCuota.ToString("0.00");
 
                 }
                 else
@@ -183,29 +190,126 @@ namespace ClubDeportivo
                 return;
             }
 
-            SaveFileDialog sfd = new SaveFileDialog
-            {
-                Filter = "Archivo PDF|*.pdf",
-                FileName = "PagosSocio.pdf"
-            };
+            DialogResult result = MessageBox.Show(
+                "¿Qué desea hacer?\nSí: Generar PDF\nNo: Imprimir\nCancelar: Salir",
+                "Generar PDF o Imprimir",
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Question);
 
-            if (sfd.ShowDialog() == DialogResult.OK)
+            if (result == DialogResult.Yes) // PDF
             {
-                try
+                SaveFileDialog sfd = new SaveFileDialog
                 {
-                    string nombreSocio = txtLeyendaSocio.Text;
-                    ImpresionPagos.GenerarPDF(dgvPagosRealizados, nombreSocio, sfd.FileName);
-                    MessageBox.Show("PDF generado correctamente.");
-                    System.Diagnostics.Process.Start("explorer.exe", sfd.FileName);
+                    Filter = "Archivo PDF|*.pdf",
+                    FileName = "PagosSocio.pdf"
+                };
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        string nombreSocio = txtLeyendaSocio.Text;
+                        ImpresionPagos.GenerarPDF(dgvPagosRealizados, nombreSocio, sfd.FileName);
+                        MessageBox.Show("PDF generado correctamente.");
+                        System.Diagnostics.Process.Start("explorer.exe", sfd.FileName);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al generar PDF:\n" + ex.Message);
+                    }
                 }
-                catch (Exception ex)
+            }
+            else if (result == DialogResult.No) // Imprimir
+            {
+                PrintDocument pd = new PrintDocument();
+                pd.DefaultPageSettings.Landscape = false;
+                pd.DefaultPageSettings.Margins = new Margins(50, 50, 50, 50); // márgenes de 5cm
+
+                pd.PrintPage += (s, ev) =>
                 {
-                    MessageBox.Show("Error al generar PDF: " + ex.Message);
+                    try
+                    {
+                        Font fontHeader = new Font("Arial", 12, FontStyle.Bold);
+                        Font fontCell = new Font("Arial", 10);
+                        float y = ev.MarginBounds.Top;
+                        float x = ev.MarginBounds.Left;
+
+                        // Título centrado
+                        string titulo = "Pagos del socio: " + txtLeyendaSocio.Text;
+                        SizeF tituloSize = ev.Graphics.MeasureString(titulo, fontHeader);
+                        ev.Graphics.DrawString(titulo, fontHeader, Brushes.Black,
+                            ev.MarginBounds.Left + (ev.MarginBounds.Width - tituloSize.Width) / 2, y);
+                        y += tituloSize.Height + 20;
+
+                        // Cálculo de ancho de columna (autoajuste)
+                        int colCount = dgvPagosRealizados.Columns.Count;
+                        float[] colWidths = new float[colCount];
+                        float totalWidth = ev.MarginBounds.Width;
+                        for (int i = 0; i < colCount; i++)
+                            colWidths[i] = totalWidth / colCount;
+
+                        // Encabezados
+                        for (int i = 0; i < colCount; i++)
+                        {
+                            ev.Graphics.FillRectangle(Brushes.LightGray, x, y, colWidths[i], 25);
+                            ev.Graphics.DrawRectangle(Pens.Black, x, y, colWidths[i], 25);
+                            ev.Graphics.DrawString(dgvPagosRealizados.Columns[i].HeaderText, fontHeader, Brushes.Black, x + 2, y + 4);
+                            x += colWidths[i];
+                        }
+
+                        y += 25;
+                        x = ev.MarginBounds.Left;
+
+                        // Filas
+                        for (int i = 0; i < dgvPagosRealizados.Rows.Count; i++)
+                        {
+                            if (y + 25 > ev.MarginBounds.Bottom)
+                            {
+                                ev.HasMorePages = true;
+                                return;
+                            }
+
+                            for (int j = 0; j < colCount; j++)
+                            {
+                                string text = dgvPagosRealizados.Rows[i].Cells[j].Value?.ToString() ?? "";
+                                ev.Graphics.DrawRectangle(Pens.Black, x, y, colWidths[j], 25);
+                                ev.Graphics.DrawString(text, fontCell, Brushes.Black, x + 2, y + 4);
+                                x += colWidths[j];
+                            }
+
+                            x = ev.MarginBounds.Left;
+                            y += 25;
+                        }
+
+                        ev.HasMorePages = false;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al imprimir:\n" + ex.Message);
+                    }
+                };
+
+                using (PrintDialog printDialog = new PrintDialog { Document = pd })
+                {
+                    if (printDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            pd.Print();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("No se pudo imprimir:\n" + ex.Message);
+                        }
+                    }
                 }
             }
         }
-        
 
+        private void dtpFechaPago_ValueChanged(object sender, EventArgs e)
+        {
+            dtpFechaVencimiento.Value = dtpFechaPago.Value.AddDays(30);
+        }
 
         private void btnVolver_Click(object sender, EventArgs e)
         {

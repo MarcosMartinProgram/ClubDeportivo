@@ -34,7 +34,7 @@
             btnGenerarCarnet = new Button();
             btnCobraCuota = new Button();
             btnGestionValores = new Button();
-            button5 = new Button();
+            btnGenerarListado = new Button();
             btnSalir = new Button();
             SuspendLayout();
             // 
@@ -108,16 +108,17 @@
             btnGestionValores.UseVisualStyleBackColor = false;
             btnGestionValores.Click += btnGestionValores_Click;
             // 
-            // button5
+            // btnGenerarListado
             // 
-            button5.BackColor = SystemColors.Info;
-            button5.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button5.Location = new Point(301, 335);
-            button5.Name = "button5";
-            button5.Size = new Size(153, 60);
-            button5.TabIndex = 6;
-            button5.Text = "LISTAR VENCIMIENTOS";
-            button5.UseVisualStyleBackColor = false;
+            btnGenerarListado.BackColor = SystemColors.Info;
+            btnGenerarListado.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnGenerarListado.Location = new Point(301, 335);
+            btnGenerarListado.Name = "btnGenerarListado";
+            btnGenerarListado.Size = new Size(153, 60);
+            btnGenerarListado.TabIndex = 6;
+            btnGenerarListado.Text = "LISTAR VENCIMIENTOS";
+            btnGenerarListado.UseVisualStyleBackColor = false;
+            btnGenerarListado.Click += btnGenerarListado_Click;
             // 
             // btnSalir
             // 
@@ -137,7 +138,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(555, 507);
             Controls.Add(btnSalir);
-            Controls.Add(button5);
+            Controls.Add(btnGenerarListado);
             Controls.Add(btnGestionValores);
             Controls.Add(btnCobraCuota);
             Controls.Add(btnGenerarCarnet);
@@ -160,7 +161,7 @@
         private Button btnGenerarCarnet;
         private Button btnCobraCuota;
         private Button btnGestionValores;
-        private Button button5;
+        private Button btnGenerarListado;
         private Button btnSalir;
     }
 }

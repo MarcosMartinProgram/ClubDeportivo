@@ -310,6 +310,7 @@
             Name = "FrmGestionValores";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Gestión Actividades y Valores";
+            FormClosing += FrmGestionValores_FormClosing;
             Load += FrmGestionValores_Load;
             tpActividadesYValores.ResumeLayout(false);
             tpActividades.ResumeLayout(false);

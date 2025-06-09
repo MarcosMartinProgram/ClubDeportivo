@@ -55,7 +55,7 @@
             btnImprimirPagos.AutoSize = true;
             btnImprimirPagos.BackgroundImageLayout = ImageLayout.Center;
             btnImprimirPagos.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnImprimirPagos.Location = new Point(532, 216);
+            btnImprimirPagos.Location = new Point(545, 277);
             btnImprimirPagos.Name = "btnImprimirPagos";
             btnImprimirPagos.Size = new Size(123, 36);
             btnImprimirPagos.TabIndex = 16;
@@ -104,6 +104,7 @@
             dtpFechaVencimiento.Name = "dtpFechaVencimiento";
             dtpFechaVencimiento.Size = new Size(218, 23);
             dtpFechaVencimiento.TabIndex = 4;
+            dtpFechaVencimiento.ValueChanged += dtpFechaPago_ValueChanged;
             // 
             // cmbFormaPago
             // 
@@ -117,7 +118,7 @@
             // cmbCantidadCuotas
             // 
             cmbCantidadCuotas.FormattingEnabled = true;
-            cmbCantidadCuotas.Location = new Point(547, 152);
+            cmbCantidadCuotas.Location = new Point(545, 234);
             cmbCantidadCuotas.Name = "cmbCantidadCuotas";
             cmbCantidadCuotas.Size = new Size(105, 23);
             cmbCantidadCuotas.TabIndex = 6;
@@ -152,7 +153,7 @@
             // lblNumCuotas
             // 
             lblNumCuotas.AutoSize = true;
-            lblNumCuotas.Location = new Point(405, 155);
+            lblNumCuotas.Location = new Point(398, 237);
             lblNumCuotas.Name = "lblNumCuotas";
             lblNumCuotas.Size = new Size(109, 15);
             lblNumCuotas.TabIndex = 10;
@@ -178,7 +179,7 @@
             // btnCobrar
             // 
             btnCobrar.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnCobrar.Location = new Point(390, 216);
+            btnCobrar.Location = new Point(298, 276);
             btnCobrar.Name = "btnCobrar";
             btnCobrar.Size = new Size(124, 37);
             btnCobrar.TabIndex = 13;
@@ -208,7 +209,7 @@
             // btnVolver
             // 
             btnVolver.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnVolver.Location = new Point(450, 270);
+            btnVolver.Location = new Point(428, 276);
             btnVolver.Name = "btnVolver";
             btnVolver.Size = new Size(116, 37);
             btnVolver.TabIndex = 17;

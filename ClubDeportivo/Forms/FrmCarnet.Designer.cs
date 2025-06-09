@@ -34,7 +34,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(514, 450);
             Name = "FrmCarnet";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Vista del Carnet";

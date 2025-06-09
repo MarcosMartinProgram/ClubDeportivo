@@ -70,6 +70,36 @@ namespace ClubDeportivo.Datos
 
             return tabla;
         }
-        
+
+        public DataTable ObtenerSociosCuotaVenceEn(DateTime fecha)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                using (MySqlConnection sqlCon = Conexion.getInstancia().CrearConcexion())
+                {
+                    sqlCon.Open();
+                    string query = @"
+                        SELECT s.idSocio, p.nombre, p.apellido, ps.fechaVencimiento
+                        FROM socio s
+                        INNER JOIN persona p ON s.idPersona = p.idPersona
+                        INNER JOIN pagosocio ps ON s.idSocio = ps.idSocio
+                        WHERE ps.fechaVencimiento = @fecha";
+                    using (MySqlCommand cmd = new MySqlCommand(query, sqlCon))
+                    {
+                        cmd.Parameters.AddWithValue("@fecha", fecha.Date);
+                        using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
+                        {
+                            da.Fill(tabla);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener socios con cuota a vencer: " + ex.Message);
+            }
+            return tabla;
+        }
     }
 }

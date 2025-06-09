@@ -124,6 +124,7 @@
             btnRegistrar.TabIndex = 9;
             btnRegistrar.Text = "REGISTRAR PAGO";
             btnRegistrar.UseVisualStyleBackColor = true;
+            btnRegistrar.Click += btnRegistrar_Click;
             // 
             // lblTitulo
             // 

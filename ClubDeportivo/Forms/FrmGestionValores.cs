@@ -19,9 +19,10 @@ namespace ClubDeportivo
             InitializeComponent();
             _formularioPrincipal = formularioPrincipal;
             CargarActividades();
-        }private void FrmGestionValores_Load(object sender, EventArgs e)
+        }
+        private void FrmGestionValores_Load(object sender, EventArgs e)
         {
-            
+
 
         }
 
@@ -118,6 +119,11 @@ namespace ClubDeportivo
         {
             _formularioPrincipal.Show();
             this.Close();
+        }
+        private void FrmGestionValores_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _formularioPrincipal.Show();
+
         }
     }
 }
