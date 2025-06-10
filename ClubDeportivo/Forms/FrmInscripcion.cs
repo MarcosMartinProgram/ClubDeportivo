@@ -99,7 +99,7 @@ namespace ClubDeportivo
                     MessageBox.Show("Se almacenó con éxito.", "AVISO DEL SISTEMA",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    FrmPagos pagos = new FrmPagos(dni, _formularioPrincipal);
+                    FrmPagos pagos = new FrmPagos(dni, _formularioPrincipal, true);
                     _formularioPrincipal.Hide();
                     _mostrarPrincipalAlCerrar = false;
                     pagos.Show();

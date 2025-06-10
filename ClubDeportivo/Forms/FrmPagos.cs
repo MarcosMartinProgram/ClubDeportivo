@@ -1,4 +1,5 @@
 ﻿using ClubDeportivo.Datos;
+using ClubDeportivo.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,12 +17,22 @@ namespace ClubDeportivo
     {
         private string _dni;
         private frmPrincipal _formularioPrincipal;
-        
-        public FrmPagos(string dni, frmPrincipal formularioPrincipal)
+
+        private bool _mostrarPrincipalAlCerrar = true;
+
+        private bool _mostrarCarnetAlFinalizar = false;
+
+        private string _nombreSocio = "";
+        private string _apellidoSocio = "";
+        private string _dniSocio = "";
+
+        public FrmPagos(string dni, frmPrincipal formularioPrincipal, bool mostrarCarnetAlFinalizar = false)
         {
             InitializeComponent();
             _dni = dni;
             _formularioPrincipal = formularioPrincipal;
+            _mostrarCarnetAlFinalizar = mostrarCarnetAlFinalizar;
+            
             this.FormClosing += FrmPagos_FormClosing;
             this.dtpFechaPago.ValueChanged += dtpFechaPago_ValueChanged;
             txtDniSocio.Text = _dni;
@@ -77,10 +88,12 @@ namespace ClubDeportivo
                 if (dt.Rows.Count > 0)
                 {
                     idSocioSeleccionado = Convert.ToInt32(dt.Rows[0]["idSocio"]);
-                    string nombre = dt.Rows[0]["nombre"].ToString();
-                    string apellido = dt.Rows[0]["apellido"].ToString();
-                    txtLeyendaSocio.Text = $"{nombre} {apellido}";
-                    
+                    _nombreSocio = dt.Rows[0]["nombre"].ToString();
+                    _apellidoSocio = dt.Rows[0]["apellido"].ToString();
+                    _dniSocio = dt.Rows[0]["dni"].ToString();
+                    txtLeyendaSocio.Text = $"{_nombreSocio} {_apellidoSocio}";
+                    txtDniSocio.Text = _dniSocio;
+
                     double valorCuota = CuotasDAO.ObtenerUltimoMontoCuota();
                     txtImporte.Text = valorCuota.ToString("0.00");
 
@@ -163,6 +176,21 @@ namespace ClubDeportivo
 
                 MessageBox.Show("Pago registrado correctamente.");
                 LimpiarFormulario();
+
+                // Preguntar si desea imprimir el ticket
+                var result = MessageBox.Show("¿Desea imprimir el ticket de pago?", "Imprimir Ticket", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    ImprimirTicketPago(_nombreSocio, _apellidoSocio, _dniSocio, monto, tipoPago, cantidadCuotas, fechaPago, fechaVenc);
+                }
+
+                if (_mostrarCarnetAlFinalizar)
+                {
+                    _mostrarPrincipalAlCerrar = false;
+                    FrmCarnet carnet = new FrmCarnet(_dni, _formularioPrincipal);
+                    carnet.Show();
+                    this.Close();
+                }
             }
 
             else
@@ -313,12 +341,62 @@ namespace ClubDeportivo
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
+            _mostrarPrincipalAlCerrar = false;
             _formularioPrincipal.Show();
             this.Close();
         }
         private void FrmPagos_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _formularioPrincipal.Show();
+            if (_mostrarPrincipalAlCerrar)
+            {
+                _formularioPrincipal.Show();
+            }
+        }
+
+        private void ImprimirTicketPago(string nombre, string apellido, string dni, double monto, string tipoPago, int cantidadCuotas, DateTime fechaPago, DateTime fechaVenc)
+        {
+            PrintDocument pd = new PrintDocument();
+            pd.PrintPage += (s, ev) =>
+            {
+                float x = 10, y = 10;
+                Font fontTitulo = new Font("Consolas", 12, FontStyle.Bold);
+                Font fontDatos = new Font("Consolas", 10);
+
+                ev.Graphics.DrawString("Club Deportivo", fontTitulo, Brushes.Black, x, y);
+                y += 30;
+                ev.Graphics.DrawString("----- Ticket de Pago -----", fontDatos, Brushes.Black, x, y);
+                y += 25;
+                ev.Graphics.DrawString($"Nombre: {nombre} {apellido}", fontDatos, Brushes.Black, x, y);
+                y += 20;
+                ev.Graphics.DrawString($"DNI: {dni}", fontDatos, Brushes.Black, x, y);
+                y += 20;
+                ev.Graphics.DrawString($"Fecha de Pago: {fechaPago:dd/MM/yyyy}", fontDatos, Brushes.Black, x, y);
+                y += 20;
+                ev.Graphics.DrawString($"Vencimiento: {fechaVenc:dd/MM/yyyy}", fontDatos, Brushes.Black, x, y);
+                y += 20;
+                ev.Graphics.DrawString($"Importe: ${monto:0.00}", fontDatos, Brushes.Black, x, y);
+                y += 20;
+                ev.Graphics.DrawString($"Forma de Pago: {tipoPago}", fontDatos, Brushes.Black, x, y);
+                y += 20;
+                ev.Graphics.DrawString($"Cuotas: {cantidadCuotas}", fontDatos, Brushes.Black, x, y);
+                y += 30;
+                ev.Graphics.DrawString("¡Gracias por su pago!", fontDatos, Brushes.Black, x, y);
+            };
+
+            using (PrintDialog printDialog = new PrintDialog { Document = pd })
+            {
+                if (printDialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        pd.Print();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("No se pudo imprimir el ticket:\n" + ex.Message);
+                    }
+                }
+            }
         }
     }
 }

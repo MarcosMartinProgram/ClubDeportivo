@@ -83,6 +83,7 @@
             btnGenerarCarnet.TabIndex = 3;
             btnGenerarCarnet.Text = "GENERAR CARNET";
             btnGenerarCarnet.UseVisualStyleBackColor = false;
+            btnGenerarCarnet.Click += btnGenerarCarnet_Click;
             // 
             // btnCobraCuota
             // 

@@ -105,7 +105,7 @@ namespace ClubDeportivo.Datos
                 {
                     sqlCon.Open();
 
-                    string query = @"SELECT s.idSocio, p.nombre, p.apellido, s.precioCuota
+                    string query = @"SELECT s.idSocio, p.nombre, p.apellido, p.dni 
                              FROM socio s 
                              INNER JOIN persona p ON s.idPersona = p.idPersona 
                              WHERE p.dni = @dni";

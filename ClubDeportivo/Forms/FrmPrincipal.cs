@@ -61,9 +61,15 @@ namespace ClubDeportivo
         private void btnGenerarListado_Click(object sender, EventArgs e)
         {
             FrmListadoVencimientos listado = new FrmListadoVencimientos(this);
-            this.Hide(); 
+            this.Hide();
             listado.Show();
         }
-        
+
+        private void btnGenerarCarnet_Click(object sender, EventArgs e)
+        {
+            FrmCarnet carnet = new FrmCarnet(this);
+            this.Hide();
+            carnet.Show();
+        }
     }
 }
