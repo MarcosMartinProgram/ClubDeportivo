@@ -73,7 +73,7 @@
             // picLogo
             // 
             picLogo.Image = Properties.Resources.Clubes;
-            picLogo.Location = new Point(66, 29);
+            picLogo.Location = new Point(183, 12);
             picLogo.Name = "picLogo";
             picLogo.Size = new Size(152, 65);
             picLogo.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -106,7 +106,7 @@
             // 
             // txtBuscarDni
             // 
-            txtBuscarDni.Location = new Point(390, 121);
+            txtBuscarDni.Location = new Point(161, 89);
             txtBuscarDni.Name = "txtBuscarDni";
             txtBuscarDni.Size = new Size(100, 23);
             txtBuscarDni.TabIndex = 7;
@@ -114,7 +114,7 @@
             // lblBuscarDni
             // 
             lblBuscarDni.AutoSize = true;
-            lblBuscarDni.Location = new Point(289, 124);
+            lblBuscarDni.Location = new Point(37, 92);
             lblBuscarDni.Name = "lblBuscarDni";
             lblBuscarDni.Size = new Size(84, 15);
             lblBuscarDni.TabIndex = 8;
@@ -123,7 +123,7 @@
             // btnBuscar
             // 
             btnBuscar.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnBuscar.Location = new Point(329, 153);
+            btnBuscar.Location = new Point(317, 83);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(101, 37);
             btnBuscar.TabIndex = 9;
@@ -134,7 +134,7 @@
             // btnImprimir
             // 
             btnImprimir.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnImprimir.Location = new Point(329, 196);
+            btnImprimir.Location = new Point(314, 132);
             btnImprimir.Name = "btnImprimir";
             btnImprimir.Size = new Size(111, 35);
             btnImprimir.TabIndex = 10;
@@ -145,7 +145,7 @@
             // btnVolver
             // 
             btnVolver.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnVolver.Location = new Point(165, 218);
+            btnVolver.Location = new Point(317, 186);
             btnVolver.Name = "btnVolver";
             btnVolver.Size = new Size(96, 32);
             btnVolver.TabIndex = 11;
@@ -157,7 +157,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(514, 262);
+            ClientSize = new Size(481, 239);
             Controls.Add(btnVolver);
             Controls.Add(btnImprimir);
             Controls.Add(btnBuscar);
@@ -173,6 +173,7 @@
             Name = "FrmCarnet";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Vista del Carnet";
+            FormClosing += FrmCarnet_FormClosing;
             ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();
             ResumeLayout(false);
             PerformLayout();

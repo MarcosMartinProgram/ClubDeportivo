@@ -34,6 +34,7 @@
             dgvListado = new DataGridView();
             lblTitulo = new Label();
             btnVolver = new Button();
+            btnImprimir = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvListado).BeginInit();
             SuspendLayout();
             // 
@@ -56,7 +57,7 @@
             // btnBuscar
             // 
             btnBuscar.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnBuscar.Location = new Point(249, 114);
+            btnBuscar.Location = new Point(149, 114);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(101, 39);
             btnBuscar.TabIndex = 2;
@@ -66,6 +67,7 @@
             // 
             // dgvListado
             // 
+            dgvListado.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvListado.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvListado.Location = new Point(22, 178);
             dgvListado.Name = "dgvListado";
@@ -85,7 +87,7 @@
             // btnVolver
             // 
             btnVolver.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnVolver.Location = new Point(383, 114);
+            btnVolver.Location = new Point(424, 114);
             btnVolver.Name = "btnVolver";
             btnVolver.Size = new Size(105, 39);
             btnVolver.TabIndex = 5;
@@ -93,11 +95,23 @@
             btnVolver.UseVisualStyleBackColor = true;
             btnVolver.Click += btnVolver_Click;
             // 
+            // btnImprimir
+            // 
+            btnImprimir.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnImprimir.Location = new Point(283, 115);
+            btnImprimir.Name = "btnImprimir";
+            btnImprimir.Size = new Size(109, 38);
+            btnImprimir.TabIndex = 6;
+            btnImprimir.Text = "IMPRIMIR";
+            btnImprimir.UseVisualStyleBackColor = true;
+            btnImprimir.Click += btnImprimir_Click;
+            // 
             // FrmListadoVencimientos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(541, 358);
+            Controls.Add(btnImprimir);
             Controls.Add(btnVolver);
             Controls.Add(lblTitulo);
             Controls.Add(dgvListado);
@@ -105,7 +119,8 @@
             Controls.Add(lblFecha);
             Controls.Add(dtpFecha);
             Name = "FrmListadoVencimientos";
-            Text = "FrmListadoVencimientos";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Vencimientos Cuotas Socios";
             FormClosing += FrmListadoVencimientos_FormClosing;
             Load += FrmListadoVencimientos_Load;
             ((System.ComponentModel.ISupportInitialize)dgvListado).EndInit();
@@ -121,5 +136,6 @@
         private DataGridView dgvListado;
         private Label lblTitulo;
         private Button btnVolver;
+        private Button btnImprimir;
     }
 }

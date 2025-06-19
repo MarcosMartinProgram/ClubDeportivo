@@ -239,7 +239,6 @@
             txtMontoActividad.Name = "txtMontoActividad";
             txtMontoActividad.Size = new Size(189, 23);
             txtMontoActividad.TabIndex = 1;
-            txtMontoActividad.Text = "Ingrese el Precio";
             // 
             // cboActividad
             // 
@@ -288,7 +287,6 @@
             txtMontoCuota.Name = "txtMontoCuota";
             txtMontoCuota.Size = new Size(196, 23);
             txtMontoCuota.TabIndex = 1;
-            txtMontoCuota.Text = "Ingrese el Valor de la Cuota";
             // 
             // btnGuardarCuota
             // 

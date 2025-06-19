@@ -14,16 +14,25 @@ namespace ClubDeportivo
     public partial class FrmGestionValores : Form
     {
         private frmPrincipal _formularioPrincipal;
+
         public FrmGestionValores(frmPrincipal formularioPrincipal)
         {
             InitializeComponent();
             _formularioPrincipal = formularioPrincipal;
             CargarActividades();
+
+            txtMontoActividad.Enter += txtMontoActividad_Enter;
+            txtMontoActividad.Leave += txtMontoActividad_Leave;
+            txtMontoCuota.Enter += txtMontoCuota_Enter;
+            txtMontoCuota.Leave += txtMontoCuota_Leave;
         }
+
         private void FrmGestionValores_Load(object sender, EventArgs e)
         {
-
-
+            txtMontoActividad.Text = "Ingrese el Valor";
+            txtMontoActividad.ForeColor = Color.Black;
+            txtMontoCuota.Text = "Ingrese el Valor";
+            txtMontoCuota.ForeColor = Color.Black;
         }
 
         private void CargarActividades()
@@ -44,8 +53,6 @@ namespace ClubDeportivo
             ActividadesGestion actividades = new ActividadesGestion();
             string resultado = actividades.InsertarActividad(nombre, dias, horarios, cupo);
 
-            MessageBox.Show("Error: " + resultado);
-
             if (resultado == "OK")
             {
                 MessageBox.Show("Actividad registrada correctamente.");
@@ -57,6 +64,7 @@ namespace ClubDeportivo
                 MessageBox.Show("Error: " + resultado);
             }
         }
+
         private void LimpiarCamposActividad()
         {
             txtNombreActividad.Clear();
@@ -84,6 +92,7 @@ namespace ClubDeportivo
                 MessageBox.Show("Error: " + resultado);
             }
         }
+
         private void LimpiarCamposValorActividad()
         {
             cboActividad.SelectedIndex = -1;
@@ -94,7 +103,6 @@ namespace ClubDeportivo
         private void btnGuardarValorCuota_Click(object sender, EventArgs e)
         {
             double monto = double.Parse(txtMontoCuota.Text);
-
             DateTime fechaDesde = dtpValorCuota.Value.AddDays(1);
 
             Valores valores = new Valores();
@@ -110,20 +118,58 @@ namespace ClubDeportivo
                 MessageBox.Show("Error: " + resultado);
             }
         }
+
         private void LimpiarCamposValorCuota()
         {
             txtMontoCuota.Clear();
             dtpValorCuota.Value = DateTime.Now;
         }
+
         private void btnVolver_Click(object sender, EventArgs e)
         {
             _formularioPrincipal.Show();
             this.Close();
         }
+
         private void FrmGestionValores_FormClosing(object sender, FormClosingEventArgs e)
         {
             _formularioPrincipal.Show();
+        }
 
+        private void txtMontoActividad_Enter(object sender, EventArgs e)
+        {
+            if (txtMontoActividad.Text == "Ingrese el Valor")
+            {
+                txtMontoActividad.Text = "";
+                txtMontoActividad.ForeColor = Color.Black;
+            }
+        }
+
+        private void txtMontoActividad_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtMontoActividad.Text))
+            {
+                txtMontoActividad.Text = "Ingrese el Valor";
+                txtMontoActividad.ForeColor = Color.Silver;
+            }
+        }
+
+        private void txtMontoCuota_Enter(object sender, EventArgs e)
+        {
+            if (txtMontoCuota.Text == "Ingrese el Valor")
+            {
+                txtMontoCuota.Text = "";
+                txtMontoCuota.ForeColor = Color.Black;
+            }
+        }
+
+        private void txtMontoCuota_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtMontoCuota.Text))
+            {
+                txtMontoCuota.Text = "Ingrese el valor";
+                txtMontoCuota.ForeColor = Color.Silver;
+            }
         }
     }
-}
+} 

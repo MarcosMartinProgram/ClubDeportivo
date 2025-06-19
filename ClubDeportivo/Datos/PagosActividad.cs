@@ -10,7 +10,7 @@ namespace ClubDeportivo.Datos
 {
     internal class PagosActividad
     {
-        public string RegistrarPagoActividad(int idNoSocio, int idActividad, DateTime fechaPago, string tipoPago, double monto)
+        public string RegistrarPagoActividad(int idNoSocio, int idActividad, DateTime fecha, string tipoPago, double monto)
         {
             string respuesta = "";
             MySqlConnection sqlCon = new MySqlConnection();
@@ -25,7 +25,7 @@ namespace ClubDeportivo.Datos
 
                 cmd.Parameters.AddWithValue("p_idNoSocio", idNoSocio);
                 cmd.Parameters.AddWithValue("p_idActividad", idActividad);
-                cmd.Parameters.AddWithValue("p_fechaPago", fechaPago);
+                cmd.Parameters.AddWithValue("p_fecha", fecha);
                 cmd.Parameters.AddWithValue("p_tipoPago", tipoPago);
                 cmd.Parameters.AddWithValue("p_monto", monto);
 
@@ -87,11 +87,11 @@ namespace ClubDeportivo.Datos
                 using (MySqlConnection sqlCon = Conexion.getInstancia().CrearConcexion())
                 {
                     sqlCon.Open();
-                    string consulta = @"SELECT a.nombre AS Actividad, pa.fechaPago, pa.tipoPago, pa.monto
+                    string consulta = @"SELECT a.nombre AS Actividad, pa.fecha, pa.tipoPago, pa.monto
                                         FROM pagoactividad pa
                                         INNER JOIN actividades a ON pa.idActividad = a.idActividad
                                         WHERE pa.idNoSocio = @idNoSocio
-                                        ORDER BY pa.fechaPago DESC";
+                                        ORDER BY pa.fecha DESC";
 
                     MySqlCommand cmd = new MySqlCommand(consulta, sqlCon);
                     cmd.Parameters.AddWithValue("@idNoSocio", idNoSocio);

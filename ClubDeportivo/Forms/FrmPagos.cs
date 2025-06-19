@@ -32,12 +32,12 @@ namespace ClubDeportivo
             _dni = dni;
             _formularioPrincipal = formularioPrincipal;
             _mostrarCarnetAlFinalizar = mostrarCarnetAlFinalizar;
-            
+
             this.FormClosing += FrmPagos_FormClosing;
             this.dtpFechaPago.ValueChanged += dtpFechaPago_ValueChanged;
             txtDniSocio.Text = _dni;
             BuscarSocioPorDni();
-            
+
         }
         public FrmPagos(frmPrincipal formularioPrincipal)
         {
@@ -119,6 +119,16 @@ namespace ClubDeportivo
                 Datos.Pagos pagos = new Datos.Pagos();
                 DataTable dtPagos = pagos.ObtenerPagosPorSocio(idSocio);
                 dgvPagosRealizados.DataSource = dtPagos;
+                if (dgvPagosRealizados.Columns.Contains("fechaPago"))
+                    dgvPagosRealizados.Columns["fechaPago"].HeaderText = "Fecha de Pago";
+                if (dgvPagosRealizados.Columns.Contains("fechaVencimiento"))
+                    dgvPagosRealizados.Columns["fechaVencimiento"].HeaderText = "Vencimiento";
+                if (dgvPagosRealizados.Columns.Contains("tipoPago"))
+                    dgvPagosRealizados.Columns["tipoPago"].HeaderText = "Forma de Pago";
+                if (dgvPagosRealizados.Columns.Contains("monto"))
+                    dgvPagosRealizados.Columns["monto"].HeaderText = "Importe";
+                if (dgvPagosRealizados.Columns.Contains("cantidadCuotas"))
+                    dgvPagosRealizados.Columns["cantidadCuotas"].HeaderText = "Cuotas";
             }
             catch (Exception ex)
             {
@@ -397,6 +407,11 @@ namespace ClubDeportivo
                     }
                 }
             }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            BuscarSocioPorDni();
         }
     }
 }

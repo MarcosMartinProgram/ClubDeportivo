@@ -40,6 +40,7 @@
             lblTitulo = new Label();
             lblDias = new Label();
             lblHorarios = new Label();
+            btnVolver = new Button();
             SuspendLayout();
             // 
             // txtDni
@@ -118,7 +119,7 @@
             // 
             // btnRegistrar
             // 
-            btnRegistrar.Location = new Point(302, 281);
+            btnRegistrar.Location = new Point(213, 276);
             btnRegistrar.Name = "btnRegistrar";
             btnRegistrar.Size = new Size(138, 49);
             btnRegistrar.TabIndex = 9;
@@ -154,11 +155,22 @@
             lblHorarios.TabIndex = 12;
             lblHorarios.Text = "\"\"";
             // 
+            // btnVolver
+            // 
+            btnVolver.Location = new Point(374, 276);
+            btnVolver.Name = "btnVolver";
+            btnVolver.Size = new Size(101, 49);
+            btnVolver.TabIndex = 13;
+            btnVolver.Text = "VOLVER";
+            btnVolver.UseVisualStyleBackColor = true;
+            btnVolver.Click += btnVolver_Click;
+            // 
             // FrmPagoActividad
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(505, 381);
+            Controls.Add(btnVolver);
             Controls.Add(lblHorarios);
             Controls.Add(lblDias);
             Controls.Add(lblTitulo);
@@ -193,5 +205,6 @@
         private Label lblTitulo;
         private Label lblDias;
         private Label lblHorarios;
+        private Button btnVolver;
     }
 }

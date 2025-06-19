@@ -96,14 +96,25 @@ namespace ClubDeportivo
 
                 if (respuesta == "OK")
                 {
-                    MessageBox.Show("Se almacenó con éxito.", "AVISO DEL SISTEMA",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (chkSocio.Checked)
+                    {
+                        MessageBox.Show("Socio inscripto con éxito.", "AVISO DEL SISTEMA",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    FrmPagos pagos = new FrmPagos(dni, _formularioPrincipal, true);
-                    _formularioPrincipal.Hide();
-                    _mostrarPrincipalAlCerrar = false;
-                    pagos.Show();
-                    this.Close();
+                        FrmPagos pagos = new FrmPagos(dni, _formularioPrincipal, true);
+                        _formularioPrincipal.Hide();
+                        _mostrarPrincipalAlCerrar = false;
+                        pagos.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No socio inscripto con éxito.", "AVISO DEL SISTEMA",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        _formularioPrincipal.Show();
+                        _mostrarPrincipalAlCerrar = false;
+                        this.Close();
+                    }
                 }
                 else
                 {

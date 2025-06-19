@@ -22,11 +22,11 @@ namespace ClubDeportivo
             _formularioPrincipal = formularioPrincipal;
             this.Load += FrmPagoActividad_Load;
             this.FormClosing += FrmPagoActividad_FormClosing; // <-- Agrega esta línea
-            rdbEfectivo.Checked = true; 
+            rdbEfectivo.Checked = true;
         }
         private void FrmPagoActividad_Load(object sender, EventArgs e)
         {
-            
+
             CargarActividades();
         }
 
@@ -119,10 +119,10 @@ namespace ClubDeportivo
                 return;
             }
 
-            DateTime fechaPago = dtpFecha.Value;
+            DateTime fecha = dtpFecha.Value;
 
             PagosActividad pagos = new PagosActividad();
-            string resultado = pagos.RegistrarPagoActividad(idNoSocioSeleccionado, idActividad, fechaPago, tipoPago, monto);
+            string resultado = pagos.RegistrarPagoActividad(idNoSocioSeleccionado, idActividad, fecha, tipoPago, monto);
 
             if (resultado == "OK")
             {
@@ -147,7 +147,13 @@ namespace ClubDeportivo
         }
         private void FrmPagoActividad_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _formularioPrincipal.Show(); 
+            _formularioPrincipal.Show();
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            _formularioPrincipal.Show();
+            this.Close();
         }
     }
 }

@@ -46,6 +46,7 @@
             dgvPagosRealizados = new DataGridView();
             txtLeyendaSocio = new TextBox();
             btnVolver = new Button();
+            btnBuscar = new Button();
             btnImprimirPagos = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvPagosRealizados).BeginInit();
             SuspendLayout();
@@ -77,15 +78,15 @@
             // lblBuscarSocio
             // 
             lblBuscarSocio.AutoSize = true;
-            lblBuscarSocio.Location = new Point(25, 101);
+            lblBuscarSocio.Location = new Point(25, 75);
             lblBuscarSocio.Name = "lblBuscarSocio";
-            lblBuscarSocio.Size = new Size(36, 15);
+            lblBuscarSocio.Size = new Size(67, 15);
             lblBuscarSocio.TabIndex = 1;
-            lblBuscarSocio.Text = "Socio";
+            lblBuscarSocio.Text = "Socio (DNI)";
             // 
             // txtDniSocio
             // 
-            txtDniSocio.Location = new Point(154, 101);
+            txtDniSocio.Location = new Point(154, 75);
             txtDniSocio.Name = "txtDniSocio";
             txtDniSocio.Size = new Size(218, 23);
             txtDniSocio.TabIndex = 2;
@@ -93,14 +94,14 @@
             // 
             // dtpFechaPago
             // 
-            dtpFechaPago.Location = new Point(154, 149);
+            dtpFechaPago.Location = new Point(154, 154);
             dtpFechaPago.Name = "dtpFechaPago";
             dtpFechaPago.Size = new Size(218, 23);
             dtpFechaPago.TabIndex = 3;
             // 
             // dtpFechaVencimiento
             // 
-            dtpFechaVencimiento.Location = new Point(154, 190);
+            dtpFechaVencimiento.Location = new Point(154, 195);
             dtpFechaVencimiento.Name = "dtpFechaVencimiento";
             dtpFechaVencimiento.Size = new Size(218, 23);
             dtpFechaVencimiento.TabIndex = 4;
@@ -109,7 +110,7 @@
             // cmbFormaPago
             // 
             cmbFormaPago.FormattingEnabled = true;
-            cmbFormaPago.Location = new Point(154, 234);
+            cmbFormaPago.Location = new Point(154, 239);
             cmbFormaPago.Name = "cmbFormaPago";
             cmbFormaPago.Size = new Size(218, 23);
             cmbFormaPago.TabIndex = 5;
@@ -126,7 +127,7 @@
             // lblFechaPago
             // 
             lblFechaPago.AutoSize = true;
-            lblFechaPago.Location = new Point(25, 155);
+            lblFechaPago.Location = new Point(25, 160);
             lblFechaPago.Name = "lblFechaPago";
             lblFechaPago.Size = new Size(84, 15);
             lblFechaPago.TabIndex = 7;
@@ -135,7 +136,7 @@
             // lblFechaVenc
             // 
             lblFechaVenc.AutoSize = true;
-            lblFechaVenc.Location = new Point(25, 196);
+            lblFechaVenc.Location = new Point(25, 201);
             lblFechaVenc.Name = "lblFechaVenc";
             lblFechaVenc.Size = new Size(123, 15);
             lblFechaVenc.TabIndex = 8;
@@ -144,7 +145,7 @@
             // lblFormaPago
             // 
             lblFormaPago.AutoSize = true;
-            lblFormaPago.Location = new Point(25, 237);
+            lblFormaPago.Location = new Point(25, 242);
             lblFormaPago.Name = "lblFormaPago";
             lblFormaPago.Size = new Size(87, 15);
             lblFormaPago.TabIndex = 9;
@@ -200,10 +201,10 @@
             // 
             // txtLeyendaSocio
             // 
-            txtLeyendaSocio.Location = new Point(450, 101);
+            txtLeyendaSocio.Location = new Point(154, 104);
             txtLeyendaSocio.Name = "txtLeyendaSocio";
             txtLeyendaSocio.ReadOnly = true;
-            txtLeyendaSocio.Size = new Size(204, 23);
+            txtLeyendaSocio.Size = new Size(218, 23);
             txtLeyendaSocio.TabIndex = 15;
             // 
             // btnVolver
@@ -217,11 +218,23 @@
             btnVolver.UseVisualStyleBackColor = true;
             btnVolver.Click += btnVolver_Click;
             // 
+            // btnBuscar
+            // 
+            btnBuscar.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBuscar.Location = new Point(456, 66);
+            btnBuscar.Name = "btnBuscar";
+            btnBuscar.Size = new Size(104, 32);
+            btnBuscar.TabIndex = 18;
+            btnBuscar.Text = "BUSCAR";
+            btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
+            // 
             // FrmPagos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(680, 510);
+            Controls.Add(btnBuscar);
             Controls.Add(btnVolver);
             Controls.Add(btnImprimirPagos);
             Controls.Add(txtLeyendaSocio);
@@ -270,5 +283,6 @@
         private TextBox txtLeyendaSocio;
         private Button btnImprimirPagos;
         private Button btnVolver;
+        private Button btnBuscar;
     }
 }
